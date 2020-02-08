@@ -1,0 +1,74 @@
+﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Link to schema: https://app.quickdatabasediagrams.com/#/d/1ux0xJ
+-- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
+
+-- Modify this code to update the DB schema diagram.
+-- To reset the sample schema, replace everything with
+-- two dots ('..' - without quotes).
+
+CREATE TABLE "DEPARTMENT" (
+    "DEPT_NO" Varchar(10)   NOT NULL,
+    "DEPT_NAME" Varchar(10)   NOT NULL,
+    CONSTRAINT "pk_DEPARTMENT" PRIMARY KEY (
+        "DEPT_NO"
+     )
+);
+
+CREATE TABLE "DEPT_EMP" (
+    "EMP_NO" int   NOT NULL,
+    "DEPT_NO" Varchar(10)   NOT NULL,
+    "FROM_DATE" DATE   NOT NULL,
+    "TO_DATE" DATE   NOT NULL
+);
+
+CREATE TABLE "DEPT_MANAGER" (
+    "EMP_NO" INT   NOT NULL,
+    "DEPT_NO" Varchar(10)   NOT NULL,
+    "FROM_DT" DATE   NOT NULL,
+    "TO_DATE" DATE   NOT NULL
+);
+
+CREATE TABLE "EMPLOYEES" (
+    "EMP_NO" INT   NOT NULL,
+    "BIRTH_DATE" DATE   NOT NULL,
+    "FIRST_NAME" Varchar(10)   NOT NULL,
+    "LAST_NAME" Varchar(10)   NOT NULL,
+    "GENDER" BOOLEAN   NOT NULL,
+    "HIRE_DATE" DATE   NOT NULL,
+    CONSTRAINT "pk_EMPLOYEES" PRIMARY KEY (
+        "EMP_NO"
+     )
+);
+
+CREATE TABLE "SALARIES" (
+    "EMP_NO" INT   NOT NULL,
+    "SALARAY" INT   NOT NULL,
+    "FROM_DATE" DATE   NOT NULL,
+    "TO_DATE" DATE   NOT NULL
+);
+
+CREATE TABLE "TITLES" (
+    "EMP_NO" INT   NOT NULL,
+    "TITLE" Varchar(10)   NOT NULL,
+    "FROM_DATE" DATE   NOT NULL,
+    "TO_DATE" DATE   NOT NULL
+);
+
+ALTER TABLE "DEPT_EMP" ADD CONSTRAINT "fk_DEPT_EMP_EMP_NO" FOREIGN KEY("EMP_NO")
+REFERENCES "EMPLOYEES" ("EMP_NO");
+
+ALTER TABLE "DEPT_EMP" ADD CONSTRAINT "fk_DEPT_EMP_DEPT_NO" FOREIGN KEY("DEPT_NO")
+REFERENCES "DEPARTMENT" ("DEPT_NO");
+
+ALTER TABLE "DEPT_MANAGER" ADD CONSTRAINT "fk_DEPT_MANAGER_EMP_NO" FOREIGN KEY("EMP_NO")
+REFERENCES "EMPLOYEES" ("EMP_NO");
+
+ALTER TABLE "DEPT_MANAGER" ADD CONSTRAINT "fk_DEPT_MANAGER_DEPT_NO" FOREIGN KEY("DEPT_NO")
+REFERENCES "DEPARTMENT" ("DEPT_NO");
+
+ALTER TABLE "SALARIES" ADD CONSTRAINT "fk_SALARIES_EMP_NO" FOREIGN KEY("EMP_NO")
+REFERENCES "EMPLOYEES" ("EMP_NO");
+
+ALTER TABLE "TITLES" ADD CONSTRAINT "fk_TITLES_EMP_NO" FOREIGN KEY("EMP_NO")
+REFERENCES "EMPLOYEES" ("EMP_NO");
+
